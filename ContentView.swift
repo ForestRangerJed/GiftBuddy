@@ -11,16 +11,18 @@ struct ContentView: View {
     var body: some View {
         VStack{
             TabView{
-                GroupView()
-                    .tabItem(){
-                        Image(systemName: "person.3.fill")
-                        Text("Group")
-                    }
                 HomeView()
                     .tabItem(){
                         Image(systemName: "house.fill")
                         Text("Home")
                     }
+                
+                GroupView()
+                    .tabItem(){
+                        Image(systemName: "person.3.fill")
+                        Text("Group")
+                    }
+                
                 ProfileView()
                     .tabItem(){
                         Image(systemName: "person.crop.circle.fill")

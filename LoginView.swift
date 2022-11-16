@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct LoginView: View {
     
@@ -14,6 +15,14 @@ struct LoginView: View {
     @State private var userIsLoggedIn = false
     
     var body: some View {
+        if userIsLoggedIn {
+            ContentView()
+        } else {
+            content
+        }
+    }
+    
+    var content: some View {
         ZStack{
             
             RoundedRectangle(cornerRadius: 30, style: .continuous)
@@ -59,9 +68,9 @@ struct LoginView: View {
                 
                 
                 Button{
-//                    register
+                    login()
                 } label: {
-                    Text("Sign Up")
+                    Text("Log in")
                         .foregroundColor(.white)
                         .bold()
                         .frame(width:250, height: 40)
@@ -71,9 +80,9 @@ struct LoginView: View {
                 .offset(y: 100)
                 
                 Button{
-//                  Log in
+                    register()
                 } label: {
-                    Text("Already have an account? Login")
+                    Text("Don't have an account? Sign up")
                         .foregroundColor(.white)
                         .bold()
                 }
@@ -83,25 +92,46 @@ struct LoginView: View {
                 
             }
             .frame(width: 350)
-//            .onAppear{
-//                Auth.auth().addStateDidChangeListener { auth, user in
-//                    if user != nil {
-//                        userIsLoggedIn.toggle()
-//                    }
-//
-//                }
-//            }
+            .onAppear{
+                Auth.auth().addStateDidChangeListener { auth, user in
+                    if user != nil {
+                        userIsLoggedIn.toggle()
+                    }
+
+                }
+            }
             
         }
         .ignoresSafeArea()
     }
+    
+    func register() {
+        Auth.auth().createUser(withEmail: email, password: password){ result, error in
+            if error != nil {
+            print(error!.localizedDescription)
+            }
+        }
+    }
+    func login() {
+        Auth.auth().signIn(withEmail: email, password: password){
+            result, error in
+            if error != nil {
+            print(error!.localizedDescription)
+            }
+        }
+    }
 }
+
+
+
+
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
     }
 }
+
 
 extension View {
     func placeholder<Content: View>(
