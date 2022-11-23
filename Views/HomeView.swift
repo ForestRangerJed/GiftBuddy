@@ -10,34 +10,25 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var dataManager: DataManager
-    @State private var showPopup = false
+    
+    @State var showingPopup = false
     
     var body: some View {
-        NavigationView {
-            VStack{
-                List(dataManager.gifts) { gift in
-                    Text(gift.title)
-                }
-                .background(.gray)
-                
-            }
-            .navigationTitle("Gift List")
-            .toolbar{
-                ToolbarItem(placement: .navigationBarTrailing){
-                    Button(action:  {
-                        showPopup.toggle()
-                    }, label: {
-                        Image(systemName: "plus")
-                    })
-                    .sheet(isPresented: $showPopup) {
-                        NewGiftView()
+        NavigationView{
+            ScrollView{
+                LazyVStack{
+                    ForEach(dataManager.gifts) { gift in
+                        GiftCardView(title: gift.title)
                     }
+                    
                 }
+                .navigationTitle("Gift List")
+                
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.gray)
+            
         }
-        
     }
 }
 
