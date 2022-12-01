@@ -8,31 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    let defaults = UserDefaults.standard
+    @StateObject var  userSettings = UserSettings()
     var body: some View {
-        VStack{
-            TabView{
-                HomeView()
-                    .tabItem(){
-                        Image(systemName: "house.fill")
-                        Text("Home")
-                    }
-                
-                GroupView()
-                    .tabItem(){
-                        Image(systemName: "person.3.fill")
-                        Text("Group")
-                    }
-                
-                ProfileView()
-                    .tabItem(){
-                        Image(systemName: "person.crop.circle.fill")
-                        Text("Profile")
-                    }
-            }
+        if(defaults.bool(forKey: "IsLoggedIn") != false){
+            BottomNavView().environmentObject(userSettings)
+        } else {
+            LoginView().environmentObject(userSettings)
         }
-        
-        
-        
     }
 }
 

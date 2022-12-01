@@ -16,6 +16,9 @@ struct HomeView: View {
     var body: some View {
         NavigationView{
             ScrollView{
+                Button("Add Gift"){
+                    dataManager.addGift(title: "Test Gift #\(Int.random(in: 0..<100))")
+                }
                 LazyVStack{
                     ForEach(dataManager.gifts) { gift in
                         GiftCardView(title: gift.title)

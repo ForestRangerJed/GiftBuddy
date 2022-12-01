@@ -36,14 +36,19 @@ class DataManager: ObservableObject {
                     let gifts = GiftList(id: id, title: title, price: price, link: link)
                     self.gifts.append(gifts)
                 }
+                
+                for gift in self.gifts {
+                    print(gift)
+                }
             }
         }
     }
     
     func addGift(title: String) {
+        let dateCreated = Calendar.current
         let db = Firestore.firestore()
         let ref = db.collection("GiftList").document(title)
-        ref.setData(["title": title, "id": 2]) { error in
+        ref.setData(["title": title, "id": UUID().uuidString, "price": "$300", "link":"https://www.google.com"]) { error in
             if let error = error {
                 print(error.localizedDescription)
             }

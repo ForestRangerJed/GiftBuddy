@@ -6,14 +6,31 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ProfileView: View {
+    
+    @EnvironmentObject var userSettings: UserSettings
+    let defaults = UserDefaults.standard
+    
     var body: some View {
         VStack{
-            Text("this is my profile view")
+            Text("Sugondese").onTapGesture {
+                logout()
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)
+    }
+    
+    func logout(){
+        do{
+            try Auth.auth().signOut()
+            defaults.set(false, forKey: "IsLoggedIn")
+            userSettings.isLoggedIn = false
+        }catch{
+            
+        }
     }
 }
 

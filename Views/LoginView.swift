@@ -10,19 +10,14 @@ import Firebase
 
 struct LoginView: View {
     
+    @EnvironmentObject var userSettings: UserSettings
+    let defaults = UserDefaults.standard
+    
     @State private var email = ""
     @State private var password = ""
     @State private var userIsLoggedIn = false
     
     var body: some View {
-        if userIsLoggedIn {
-            ContentView()
-        } else {
-            content
-        }
-    }
-    
-    var content: some View {
         ZStack{
             
             RoundedRectangle(cornerRadius: 30, style: .continuous)
@@ -113,12 +108,15 @@ struct LoginView: View {
         }
     }
     func login() {
-        Auth.auth().signIn(withEmail: email, password: password){
-            result, error in
+        
+        Auth.auth().signIn(withEmail: email, password: password){result, error in
             if error != nil {
-            print(error!.localizedDescription)
+                print(error!.localizedDescription)
             }
         }
+        defaults.set(true, forKey: "IsLoggedIn")
+        userSettings.isLoggedIn = true
+        
     }
 }
 
