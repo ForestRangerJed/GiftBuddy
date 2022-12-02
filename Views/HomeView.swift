@@ -14,23 +14,34 @@ struct HomeView: View {
     @State var showingPopup = false
     
     var body: some View {
-        NavigationView{
-            ScrollView{
-                Button("Add Gift"){
-                    dataManager.addGift(title: "Test Gift #\(Int.random(in: 0..<100))")
-                }
-                LazyVStack{
-                    ForEach(dataManager.gifts) { gift in
-                        GiftCardView(title: gift.title)
-                    }
+        
+        NavigationStack{
+            ZStack{
+                ScrollView{
                     
+                    LazyVStack{
+                        ForEach(dataManager.gifts) { gift in
+                            GiftCardView(title: gift.title, price: gift.price)
+                        }
+                        
+                    }
+                    .navigationTitle("Gift List")
+                    .toolbar{}
+                    .toolbarBackground(.gray, for: .navigationBar)
+                    .toolbarBackground(.visible, for: .navigationBar)
                 }
-                .navigationTitle("Gift List")
-                
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.gray)
-            
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.gray)
+                VStack{
+                    Spacer()
+                    HStack{
+                        Spacer()
+                        NavigationLink(destination: NewGiftView()){
+                            FloatingButton()
+                        }
+                    }
+                }
+            }   
         }
     }
 }

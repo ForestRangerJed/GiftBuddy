@@ -44,9 +44,7 @@ struct LoginView: View {
                             .bold()
                         
                     }
-                Rectangle()
-                    .frame(width: 350, height: 1)
-                    .foregroundColor(.white)
+                DividerView()
                 
                 SecureField("", text: $password)
                     .foregroundColor(.white)
@@ -57,9 +55,7 @@ struct LoginView: View {
                             .bold()
                         
                     }
-                Rectangle()
-                    .frame(width: 350, height: 1)
-                    .foregroundColor(.white)
+                DividerView()
                 
                 
                 Button{

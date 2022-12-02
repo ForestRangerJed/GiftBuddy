@@ -11,14 +11,22 @@ struct GiftCardView: View {
     
     @State var showingPopup = false
     var title : String
+    var price : String
     
     var body: some View {
         VStack(alignment: .center){
             HStack{
-                Text(title)
-                    .font(.headline)
-                    .padding(.horizontal)
-                
+                VStack(alignment: .leading){
+                    Text(title)
+                        .font(.headline)
+                        .padding(.horizontal)
+                        
+                    
+                    Text("$\(price)")
+                        .font(.headline)
+                        .padding(.horizontal)
+                }
+
                 Spacer()
                 
                 Button{
@@ -41,9 +49,6 @@ struct GiftCardView: View {
                 .cornerRadius(24)
                 .padding(.horizontal)
                 .padding(.vertical, 4)
-                
-                
-           
     }
 }
 

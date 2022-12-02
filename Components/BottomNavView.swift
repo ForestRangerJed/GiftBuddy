@@ -31,6 +31,15 @@ struct BottomNavView: View {
                         Image(systemName: "person.crop.circle.fill")
                         Text("Profile")
                     }
+            }.onAppear {
+                let appearance = UITabBarAppearance()
+                appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+                appearance.backgroundColor = UIColor(Color.black.opacity(0.5))
+                
+                // Use this appearance when scrolling behind the TabView:
+                UITabBar.appearance().standardAppearance = appearance
+                // Use this appearance when scrolled all the way up:
+                UITabBar.appearance().scrollEdgeAppearance = appearance
             }
         }
     }
@@ -38,6 +47,6 @@ struct BottomNavView: View {
 
 struct BottomNavView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomNavView()
+        BottomNavView().environmentObject(DataManager())
     }
 }
