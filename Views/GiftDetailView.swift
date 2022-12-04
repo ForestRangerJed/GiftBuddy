@@ -8,13 +8,37 @@
 import SwiftUI
 
 struct GiftDetailView: View {
+    
+    @EnvironmentObject var dataManager: DataManager
+    
+    var title : String
+    var price : String
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing: 20){
+            
+                Text(title)
+                    .font(.largeTitle)
+                    .bold()
+            Spacer()
+            
+                HStack{
+                    Text("Price =")
+                    Text(price)
+                }
+               Spacer()
+                
+                
+            }
+            .navigationTitle(title)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(.gray)
+       
+       
+        
+        
     }
 }
 
-struct GiftDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        GiftDetailView()
-    }
-}
+

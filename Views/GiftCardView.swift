@@ -37,7 +37,7 @@ struct GiftCardView: View {
                         .padding(.horizontal)
                 }
                 .popover(isPresented: $showingPopup){
-                    GiftDetailView()
+                    GiftDetailView(title: title, price: price)
                 }
                 
             }
